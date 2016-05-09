@@ -25,7 +25,7 @@ void main() {
 
   memset(&servAddr, 0, sizeof(servAddr));
   servAddr.sin_family = AF_INET; // ipv4
-  servAddr.sin_addr.S_un.S_addr = htonl(INADDR_ANY);  // host to network long형임. INADDR_ANY  = 00000000
+  servAddr.sin_addr.S_un.S_addr = htonl(INADDR_ANY);  // long형을 host to network long형으로 바꿔라. INADDR_ANY  = 00000000  little endian > big endian
   servAddr.sin_port = htons(9000); // host to network  short형임 입력받을땐 atoi로 인티저 형번환
 
   if (SOCKET_ERROR == bind(ServSock, (SOCKADDR*)&servAddr, sizeof(servAddr))) { // 소켓에 ip와 포트번호 할당
