@@ -25,14 +25,14 @@ void main() {
 
   memset(&servAddr, 0, sizeof(servAddr));
   servAddr.sin_family = AF_INET; // ipv4
-  servAddr.sin_addr.S_un.S_addr = htonl(INADDR_ANY);  // long형을 host to network long형으로 바꿔라. INADDR_ANY  = 00000000  little endian > big endian
+  servAddr.sin_addr.S_un.S_addr = htonl(INADDR_ANY);  // long형을 host to network long형으로 바꿔라. INADDR_ANY  = 소켓이동작하는주소  little endian > big endian
   servAddr.sin_port = htons(9000); // host to network  short형임 입력받을땐 atoi로 인티저 형번환
-
+  
   if (SOCKET_ERROR == bind(ServSock, (SOCKADDR*)&servAddr, sizeof(servAddr))) { // 소켓에 ip와 포트번호 할당
     Err_handling("Bind ERR");
   }
 
-  if (SOCKET_ERROR == listen(ServSock, 5)) { // 소켓이 클라이언트 연결을 받아들이기 위한 상태 설정 backlog(최대 연결요청 수)
+  if (SOCKET_ERROR == listen(ServSock, 5)) { // 소켓이 클라이언트 연결을 받아들이기 위한 상태 설정 backlog(최대 연결요청 대기큐의 수)
     Err_handling("Listen ERR");
   }
   int clntAddr_size = sizeof(clntAddr); // accept(Socket, sockaddr*, int *addrlen) addrlen이 포인터형식이므로 bind와는 다르게 변수하나 만들어줘야함
